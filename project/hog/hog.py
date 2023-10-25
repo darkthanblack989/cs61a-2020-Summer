@@ -144,6 +144,8 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
             scores[who] = scores[other(who)]
             scores[other(who)] = scores_tmp
         who = other(who)
+        say = say(scores[0],scores[1])
+
     
     # END PROBLEM 5
     # (note that the indentation for the problem 6 prompt (***YOUR CODE HERE***) might be misleading)
