@@ -21,6 +21,8 @@ def composer(func=lambda x: x):
     """
     def func_adder(g):
         "*** YOUR CODE HERE ***"
+        return composer(lambda x: func(g(x)))
+
     return func, func_adder
 
 
@@ -43,6 +45,10 @@ def g(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    if n <= 3:
+        return n
+    else:
+        return g(n-1)+2*g(n-2)+3*g(n-3)
 
 def g_iter(n):
     """Return the value of G(n), computed iteratively.
@@ -63,6 +69,15 @@ def g_iter(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    if n <= 3:
+        return n
+    i = 4
+    g1,g2,g3 = 1,2,3
+    while i <= n:
+        g1,g2,g3 = g2,g3,3*g1+2*g2+g3
+        i += 1
+    return g3
+
 
 
 def missing_digits(n):
@@ -93,6 +108,13 @@ def missing_digits(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    def h(n,right):
+        if n == 0:
+            return 0
+        if right-n%10 < 2:
+            return h(n//10,n%10)
+        return h(n//10,n%10)+right-n%10-1
+    return h(n//10,n%10)
 
 
 def count_change(total):
@@ -112,6 +134,15 @@ def count_change(total):
     True
     """
     "*** YOUR CODE HERE ***"
+    def h(total,n):
+        if n > total:
+            return 0
+        if n == total:
+            return 1
+        if total < 0:
+            return 0
+        return h(total-n,n) + h(total,2*n)
+    return h(total,1)
 
 
 def print_move(origin, destination):
@@ -147,6 +178,12 @@ def move_stack(n, start, end):
     """
     assert 1 <= start <= 3 and 1 <= end <= 3 and start != end, "Bad start/end"
     "*** YOUR CODE HERE ***"
+    if n == 1:
+        print_move(start,end)
+        return
+    move_stack(n-1,start,6-end-start)
+    print_move(start,end)
+    move_stack(n-1,6-end-start,end)
 
 
 from operator import sub, mul
